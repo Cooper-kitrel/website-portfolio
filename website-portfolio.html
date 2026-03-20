@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cooper Kitrel | Portfolio</title>
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.1);
+      --text: #ffffff;
+      --muted: #94a3b8;
+      --blue: #60a5fa;
+      --blue-strong: #3b82f6;
+      --cyan: #67e8f9;
+      --shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+      background: var(--bg);
+    }
+
+    .container {
+      width: min(1200px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 88px 0;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 4vw, 48px);
+      line-height: 1.1;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .section-subtle {
+      color: var(--muted);
+      display: block;
+      margin-top: 6px;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .site-header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .nav {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: #cbd5e1;
+      font-size: 14px;
+      transition: color 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: var(--blue);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+      padding: 110px 0 120px;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(59, 130, 246, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.12) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.6;
+      animation: gridMove 10s linear infinite alternate;
+      pointer-events: none;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      animation: floatGlow 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .orb-left {
+      width: 224px;
+      height: 224px;
+      left: 40px;
+      top: 80px;
+      background: rgba(59, 130, 246, 0.3);
+    }
+
+    .orb-right {
+      width: 288px;
+      height: 288px;
+      right: 40px;
+      top: 140px;
+      background: rgba(103, 232, 249, 0.2);
+      animation-delay: 1s;
+    }
+
+    .hero-content {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      margin-bottom: 24px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: #93c5fd;
+      border: 1px solid rgba(96, 165, 250, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+      animation: pulseLine 3s ease-in-out infinite;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(48px, 8vw, 88px);
+      line-height: 0.98;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .gradient-text {
+      display: block;
+      background: linear-gradient(to right, #60a5fa, #67e8f9, #ffffff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      margin: 28px 0 0;
+      max-width: 720px;
+      font-size: 20px;
+      color: #cbd5e1;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 36px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--blue-strong);
+      color: white;
+      border-color: var(--blue);
+    }
+
+    .btn-primary:hover {
+      background: #60a5fa;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      border-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(96, 165, 250, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 16px;
+    }
+
+    .panel {
+      padding: 28px;
+    }
+
+    .panel-label {
+      color: #94a3b8;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      margin-bottom: 18px;
+    }
+
+    .focus-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .focus-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+
+    .focus-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .focus-row span:last-child {
+      color: var(--blue);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .stat-card {
+      padding: 22px 16px;
+      text-align: center;
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 32px;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .stat-card span {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .about-card {
+      padding: 32px;
+      color: #cbd5e1;
+    }
+
+    .about-card p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.9;
+    }
+
+    .about-card p+p {
+      margin-top: 20px;
+      color: #94a3b8;
+      font-size: 16px;
+    }
+
+    .skills-header,
+    .projects-header,
+    .experience-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .skills-note {
+      color: var(--muted);
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .skill-card {
+      padding: 22px;
+      transition: all 0.25s ease;
+    }
+
+    .skill-card:hover {
+      border-color: rgba(96, 165, 250, 0.4);
+      background: rgba(59, 130, 246, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .skill-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .skill-name {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .skill-status {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #64748b;
+    }
+
+    .skill-card:hover .skill-status {
+      color: #93c5fd;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      padding: 28px;
+      transition: all 0.25s ease;
+    }
+
+    .project-card:hover {
+      border-color: rgba(96, 165, 250, 0.4);
+      transform: translateY(-6px);
+    }
+
+    .project-glow {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 96px;
+      height: 96px;
+      background: rgba(59, 130, 246, 0.12);
+      filter: blur(32px);
+      pointer-events: none;
+    }
+
+    .project-card h3 {
+      position: relative;
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .project-card p {
+      position: relative;
+      margin: 18px 0 0;
+      font-size: 14px;
+      line-height: 1.9;
+      color: #cbd5e1;
+    }
+
+    .tags {
+      position: relative;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .tag {
+      padding: 6px 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #93c5fd;
+      border: 1px solid rgba(96, 165, 250, 0.2);
+      background: rgba(96, 165, 250, 0.1);
+    }
+
+    .project-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 22px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #93c5fd;
+      transition: color 0.2s ease;
+    }
+
+    .project-link:hover {
+      color: white;
+    }
+
+    .experience-list {
+      display: grid;
+      gap: 20px;
+    }
+
+    .experience-card {
+      padding: 28px;
+    }
+
+    .experience-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .experience-card h3 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.3;
+    }
+
+    .period {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .experience-card p {
+      margin: 16px 0 0;
+      max-width: 900px;
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .site-footer {
+      padding: 28px 0 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes gridMove {
+      0% {
+        transform: translateY(0px);
+      }
+
+      100% {
+        transform: translateY(40px);
+      }
+    }
+
+    @keyframes floatGlow {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+        opacity: 0.55;
+      }
+
+      50% {
+        transform: translateY(-12px);
+        opacity: 0.9;
+      }
+    }
+
+    @keyframes pulseLine {
+
+      0%,
+      100% {
+        opacity: 0.35;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 1100px) {
+
+      .hero-content,
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .projects-grid,
+      .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .container {
+        width: min(1200px, calc(100% - 32px));
+      }
+
+      .site-header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav {
+        gap: 16px;
+      }
+
+      .hero {
+        padding: 84px 0 96px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+
+      .stats-grid,
+      .projects-grid,
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skills-header,
+      .projects-header,
+      .experience-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .skills-note {
+        text-align: left;
+      }
+
+      .experience-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="container site-header-inner">
+        <a href="#home" class="brand">Cooper Kitrel</a>
+        <nav class="nav">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#experience">Experience</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-grid"></div>
+        <div class="orb orb-left"></div>
+        <div class="orb orb-right"></div>
+
+        <div class="container hero-content">
+          <div class="reveal">
+            <div class="hero-badge glass">
+              <span class="hero-badge-dot"></span>
+              Finance • Analytics • AI
+            </div>
+
+            <h1>
+              Building sharp,
+              <span class="gradient-text">data-driven business solutions.</span>
+            </h1>
+
+            <p>
+              I’m Cooper Kitrel, a Finance graduate from UNLV focused on analytics, business intelligence,
+              and AI-powered problem solving. I turn messy information into clear insights, decisions, and outcomes.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#projects" class="btn btn-primary">View Projects</a>
+              <a href="#about" class="btn btn-secondary">Explore Profile</a>
+            </div>
+          </div>
+
+          <div class="hero-side reveal">
+            <div class="panel glass">
+              <div class="panel-label">Focus</div>
+              <div class="focus-list">
+                <div class="focus-row">
+                  <span>Business Intelligence</span>
+                  <span>01</span>
+                </div>
+                <div class="focus-row">
+                  <span>Financial Analytics</span>
+                  <span>02</span>
+                </div>
+                <div class="focus-row">
+                  <span>AI &amp; Automation</span>
+                  <span>03</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-card glass">
+                <strong>3</strong>
+                <span>Featured Projects</span>
+              </div>
+              <div class="stat-card glass">
+                <strong>12+</strong>
+                <span>Core Skills</span>
+              </div>
+              <div class="stat-card glass">
+                <strong>AI</strong>
+                <span>Growth Focus</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="container about-grid">
+          <div class="reveal">
+            <div class="eyebrow">About</div>
+            <h2 class="section-title">
+              Analytical mindset.
+              <span class="section-subtle">Professional execution.</span>
+            </h2>
+          </div>
+
+          <div class="about-card glass reveal">
+            <p>
+              My background blends finance, analytics, and business intelligence with practical experience in
+              operations,
+              sales, and project-based data work. I enjoy building models, designing dashboards, and using technology to
+              create clearer decisions and stronger business performance.
+            </p>
+            <p>
+              I bring a mix of technical curiosity, discipline, and real-world business perspective. My current
+              direction is centered on data science, AI, and automation-driven solutions that are both strategic and
+              usable.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="skills">
+        <div class="container">
+          <div class="skills-header reveal">
+            <div>
+              <div class="eyebrow">Skills</div>
+              <h2 class="section-title">Technical toolkit</h2>
+            </div>
+            <div class="skills-note">Built for analytics, reporting, and intelligent systems</div>
+          </div>
+
+          <div class="skills-grid">
+            <div class="skill-card glass reveal">
+              <div class="skill-row"><span class="skill-name">Python</span><span class="skill-status">Active</span>
+              </div>
+            </div>
+            <div class="skill-card glass reveal">
+              <div class="skill-row"><span class="skill-name">SQL</span><span class="skill-status">Active</span></div>
+            </div>
+            <div class="skill-card glass reveal">
+              <div class="skill-row"><span class="skill-name">Excel / Advanced Spreadsheets</span><span
+                  class="skill-status">Active</span></div>
+            </div>
+            <div class="skill-card glass reveal">
+              <div class="skill-row"><span class="skill-name">Tableau</span><span class="skill-status">Active</span>
+              </div>
+            </div>
+            <div class="skill-card glass reveal">
+              <div class="skill-row"><span class="skill-name">Power BI</span><span class="skill-status">Active</span>
+              </div>
+            </div>
+            <div class="skill-card glass reveal">
+              <div class="skill-row"><span class="skill-name">Statistical Analysis</span><span
+                  class="skill-status">Active</span></div>
+            </div>
+            <div class="skill-card glass reveal">
+              <div class="skill-row"><span class="skill-name">Business Intelligence</span><span
+                  class="skill-status">Active</span></div>
+            </div>
+            <div class="skill-card glass reveal">
+              <div class="skill-row"><span class="skill-name">Financial Analysis</span><span
+                  class="skill-status">Active</span></div>
+            </div>
+            <div class="skill-card glass reveal">
+              <div class="skill-row"><span class="skill-name">Investment Analysis</span><span
+                  class="skill-status">Active</span></div>
+            </div>
+            <div class="skill-card glass reveal">
+              <div class="skill-row"><span class="skill-name">AI / ML</span><span class="skill-status">Active</span>
+              </div>
+            </div>
+            <div class="skill-card glass reveal">
+              <div class="skill-row"><span class="skill-name">Automation Workflows</span><span
+                  class="skill-status">Active</span></div>
+            </div>
+            <div class="skill-card glass reveal">
+              <div class="skill-row"><span class="skill-name">Project Management</span><span
+                  class="skill-status">Active</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="container">
+          <div class="projects-header reveal">
+            <div>
+              <div class="eyebrow">Projects</div>
+              <h2 class="section-title">Selected work</h2>
+            </div>
+          </div>
+
+          <div class="projects-grid">
+            <article class="project-card glass reveal">
+              <div class="project-glow"></div>
+              <h3>Determinants of Las Vegas Home Prices</h3>
+              <p>
+                Regression-based housing analysis focused on identifying the key drivers behind Las Vegas home values
+                using quantitative methods and visual insights.
+              </p>
+              <div class="tags">
+                <span class="tag">Regression</span>
+                <span class="tag">Housing Data</span>
+                <span class="tag">STATA</span>
+              </div>
+              <a class="project-link"
+                href="https://docs.google.com/document/d/15pyutaow5Uy098DoY-hjhgzwtpwRnOby1GX2UPpcmxU/edit?tab=t.0"
+                target="_blank" rel="noopener noreferrer">
+                View Project <span>↗</span>
+              </a>
+            </article>
+
+            <article class="project-card glass reveal">
+              <div class="project-glow"></div>
+              <h3>Superstore Return Analysis</h3>
+              <p>
+                Tableau-driven return analysis that surfaced geographic return patterns and helped explain abnormal
+                performance across customer segments.
+              </p>
+              <div class="tags">
+                <span class="tag">Tableau</span>
+                <span class="tag">Dashboards</span>
+                <span class="tag">Analytics</span>
+              </div>
+              <a class="project-link"
+                href="https://public.tableau.com/app/profile/cooper.kitrel/viz/superstorereturns_17107311511210/SuperstoreReturns"
+                target="_blank" rel="noopener noreferrer">
+                View Project <span>↗</span>
+              </a>
+            </article>
+
+            <article class="project-card glass reveal">
+              <div class="project-glow"></div>
+              <h3>NYC Airbnb Investment Analysis</h3>
+              <p>
+                Profitability analysis of Airbnb opportunities in New York using cleaned datasets, spreadsheet modeling,
+                and investment-focused evaluation.
+              </p>
+              <div class="tags">
+                <span class="tag">Investment</span>
+                <span class="tag">Modeling</span>
+                <span class="tag">Spreadsheets</span>
+              </div>
+              <a class="project-link"
+                href="https://docs.google.com/spreadsheets/d/1C0LdwhA_klPc9sRhgJPbUJjX23wvvPWC1nCcBfq6zcc/edit?gid=1397866111#gid=1397866111"
+                target="_blank" rel="noopener noreferrer">
+                View Project <span>↗</span>
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="experience">
+        <div class="container">
+          <div class="experience-header reveal">
+            <div>
+              <div class="eyebrow">Experience</div>
+              <h2 class="section-title">Professional background</h2>
+            </div>
+          </div>
+
+          <div class="experience-list">
+            <article class="experience-card glass reveal">
+              <div class="experience-top">
+                <h3>Aquamermaid Pools — Maintenance and Repair</h3>
+                <div class="period">Las Vegas | 2016 – Present</div>
+              </div>
+              <p>
+                Operate hands-on service and repair work while improving inventory readiness, customer relationships,
+                and business visibility through efficient operations and networking.
+              </p>
+            </article>
+
+            <article class="experience-card glass reveal">
+              <div class="experience-top">
+                <h3>Uncle Charlie’s — Product Sales Manager</h3>
+                <div class="period">Las Vegas | 2016 – 2019</div>
+              </div>
+              <p>
+                Managed client appointments and product sales while improving scheduling efficiency and strengthening
+                seasonal sales performance.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        © 2026 Cooper Kitrel | Las Vegas, Nevada
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const revealElements = document.querySelectorAll('.reveal');
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12
+      }
+    );
+
+    revealElements.forEach((el) => revealObserver.observe(el));
+  </script>
+</body>
+
+</html>
